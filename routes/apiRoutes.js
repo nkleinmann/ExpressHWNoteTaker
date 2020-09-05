@@ -8,15 +8,15 @@ let userNotes = [];
 fs.readFile("./db/db.json", (error, data) => {
     if (error) throw error;
     userNotes = (JSON.parse(data));
-}); 
+});
 
 function changeNote() {
-        fs.writeFile("./db/db.json", JSON.stringify(userNotes), (error) => {
-            if (error) throw error;
-        });
-    }
+    fs.writeFile("./db/db.json", JSON.stringify(userNotes), (error) => {
+        if (error) throw error;
+    });
+}
 
-function getNotes(notes) {
+function notesActions(notes) {
     notes.get("/api/notes", (request, response) => {
         response.json(userNotes);
     });
@@ -28,6 +28,19 @@ function getNotes(notes) {
         changeNote();
         response.send(userNotes);
     });
+    notes.delete("/api/notes/:id", (request, response) => {
+        deleteID = request.params.id;
+        for (let i = 0; i < userNotes.length; i++) {
+            if (userNotes[i].id === deleteID) {
+                userNotes.splice(i, 1);
+                changeNote();
+                response.send(userNotes);
+                return;
+            }
+        }
+    })
 }
 
-module.exports = getNotes;
+module.exports = notesActions;
+
+
