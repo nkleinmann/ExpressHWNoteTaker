@@ -20,7 +20,7 @@ node server.js
             
 ## Usage:
 
-Here is the link to my application: [View Express Note Taker](#)
+Here is the link to my application: [View Express Note Taker](https://cryptic-gorge-51487.herokuapp.com/)
 
 Parts of Website:
 
